@@ -1,0 +1,20 @@
+{
+    "imports": {
+
+    },
+    "tasks": {
+      "run": "deno run --allow-read --allow-env --allow-net main.ts",
+      "devRun": "denon run --allow-read --allow-env --allow-net main.ts"
+    },
+    "compilerOptions": {
+        "allowJs": true,
+        "lib": ["deno.window"],
+        "strict": true
+    },
+    "fmt": {
+        "files": {
+          "include": ["./"]
+        }
+    }
+    
+  }

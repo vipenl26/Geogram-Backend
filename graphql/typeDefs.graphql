@@ -1,0 +1,16 @@
+type baseDTO {
+  message: String!
+  accessToken: String
+}
+
+type Query {
+  hello: String
+  bye: String
+  signIn(username: String, password: String): baseDTO
+  whoami(bearer: String): baseDTO
+}
+
+type Mutation {
+  createNewUser(username: String, password: String, fullname: String): baseDTO
+}
+  
