@@ -15,8 +15,10 @@ const GraphQLService = await applyGraphQL<Router>({
   context: context
 });
 
+// deno-lint-ignore no-explicit-any
 export interface MyContext extends Context<Record<string, any>, Record<string, any>> {
-  username?: string;
+  username?: string
+  userid?: string
 }
 
 
@@ -25,15 +27,16 @@ server.use(async (ctx: MyContext, next) => {
   if ('request' in ctx && ctx.request != null) {
     if ('headers' in ctx.request && ctx.request.headers != null) {
       const headers = ctx.request.headers;
-      
       if ('get' in headers && typeof headers.get == 'function') {
         const Bearer = headers.get('Bearer')
         if (Bearer != null) {
           const res = await validateJWT(Bearer)
           if (res.isValid && 'payload' in res) {
             if (res.payload != undefined && 'username' in res.payload && typeof res.payload.username == 'string') {
-              console.log(res.payload.username)
               ctx.username = res.payload.username
+            }
+            if (res.payload != undefined && 'userid' in res.payload && typeof res.payload.userid == 'string') {
+              ctx.userid = res.payload.userid
             }
             return await next()
           }

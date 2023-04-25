@@ -13,7 +13,8 @@ const key = await crypto.subtle.importKey(
     true,
     ["sign", "verify"],
 )
-const expireLimit = 3000; // in seconds
+const expireLimit = 15 * 60; // in seconds
+// deno-lint-ignore ban-types
 const generateJWT = async (data: Object) => {
     const payload: Payload = {
         ...data,
@@ -41,7 +42,12 @@ const generateJWT = async (data: Object) => {
 const validateJWT = async (jwt: string): Promise<{isValid: boolean, payload?: Payload}> => {
     try {
         const payload = await verify(jwt, key); 
-          return {isValid: true, payload: payload}
+        if ('exp' in payload && typeof payload.exp == 'number') {
+            if (payload.exp < getNumericDate(0)) {
+                return {isValid: false}
+            }
+        }
+        return {isValid: true, payload: payload}
       }
       catch(_e){
         const e:Error= _e;

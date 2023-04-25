@@ -1,10 +1,16 @@
 import { MyContext } from "./server.ts"
 const context = (ctx: MyContext) => {
-    if ('username' in ctx){
-        return {username: ctx.username}
+    const res = {username: "", userid: ""}
+    if ('username' in ctx && ctx.username != undefined){
+        res.username = ctx.username
+    }
+    if ('userid' in ctx && ctx.userid != undefined) {
+        res.userid = ctx.userid
     }
 
-    return {}
+
+
+    return res
 }
 
 export default context
