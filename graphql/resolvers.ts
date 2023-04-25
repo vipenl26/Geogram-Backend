@@ -6,7 +6,7 @@ const resolvers = {
       hello: () => `Hello, World!`,
       bye: () => `hehe hoho`,
       signIn: (_parent: unknown, args: {username: string, password: string}) => signIn(args.username, args.password),
-      whoami: (bearer: string) => whoami(bearer)
+      whoami: (_parent: unknown, _args: unknown, ctx:Record<string, unknown>) => whoami(ctx)
     },
 
     Mutation: {

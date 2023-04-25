@@ -1,5 +1,5 @@
 import { create, verify , getNumericDate, Payload, Header} from "https://deno.land/x/djwt@v2.4/mod.ts";
-import "https://deno.land/x/dotenv/load.ts"
+import "https://deno.land/x/dotenv@v3.2.2/load.ts"
 
 const ACCESS_TOKEN_SECRET = Deno.env.get("ACCESS_TOKEN_SECRET") || ""
 const encoder = new TextEncoder()
@@ -19,7 +19,7 @@ const generateJWT = async (data: Object) => {
         ...data,
         exp: getNumericDate(expireLimit),
     };
-    console.log(getNumericDate(expireLimit))
+    //console.log(getNumericDate(expireLimit))
     const algorithm = "HS256"
 
     const header: Header = {
@@ -38,18 +38,17 @@ const generateJWT = async (data: Object) => {
 }
 
 
-const validateJWT = async (jwt: string) => {
+const validateJWT = async (jwt: string): Promise<{isValid: boolean, payload?: Payload}> => {
     try {
         const payload = await verify(jwt, key); 
-          console.log("JWT is valid");
-          return payload
+          return {isValid: true, payload: payload}
       }
       catch(_e){
         const e:Error= _e;
         console.log(e.message);
       }
 
-    return {message: "invalid jwt token"}
+    return {isValid: false}
 }
 export {generateJWT, validateJWT}
 

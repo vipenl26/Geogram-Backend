@@ -1,7 +1,6 @@
-import { hash } from "https://deno.land/x/bcrypt@v0.4.1/src/main.ts";
 import doesUsernameExistsDB from "../database_service/doesUsernameExistsDB.ts"
 import getSaltOfUserDB from "../database_service/getSaltOfUserDB.ts";
-import * as bcrypt from "https://deno.land/x/bcrypt/mod.ts";
+import * as bcrypt from "https://deno.land/x/bcrypt@v0.4.1/mod.ts";
 import {generateJWT} from "./jwtHelper.ts"
 import verifyPasswordDB from "../database_service/verifyPasswordDB.ts";
 
