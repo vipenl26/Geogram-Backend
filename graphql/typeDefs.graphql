@@ -2,15 +2,23 @@ type baseDTO {
   message: String!
   accessToken: String
 }
+type message {
+  messageid: Int!
+  messagetimestamp: String!
+  messagedata: String!
+  incoming: Boolean!
+}
 
 type Query {
   hello: String
   bye: String
   signIn(username: String, password: String): baseDTO
   whoami(bearer: String): baseDTO
+  getConversation(receiverUserId: String!, limit: Int!, offset: Int!): [message]
 }
 
 type Mutation {
   createNewUser(username: String, password: String, fullname: String): baseDTO
+  sendMessage(messagedata: String, receiverUserId: String, messagetimestamp: String): Int
 }
   

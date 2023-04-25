@@ -1,6 +1,6 @@
 import doesUsernameExistsDB from "../database_service/doesUsernameExistsDB.ts"
 import createNewUserDB from "../database_service/createNewUserDB.ts"
-import * as bcrypt from "https://deno.land/x/bcrypt/mod.ts";
+import * as bcrypt from "https://deno.land/x/bcrypt@v0.4.1/mod.ts";
 const createNewUser = async(username: string, password: string, fullname: string) => {
 
     if (await doesUsernameExistsDB(username)) {

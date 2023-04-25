@@ -12,6 +12,7 @@ const signIn = async (username: string, password: string) => {
         return {message: SIGNIN_FAILED}
     }
 
+
     const salt = await getSaltOfUserDB(username)
 
     const hashedPassword = await bcrypt.hash(password, salt)

@@ -51,7 +51,7 @@ server.use(async (ctx: MyContext, next) => {
       if ('type' in body && body.type == 'json') {
         if ('value' in body) {
           const bodyv = await body.value
-          if ('query' in bodyv && typeof bodyv.query == 'string' && (bodyv.query.includes('createNewUser') || bodyv.query.includes('signIn'))) {
+          if ('query' in bodyv && typeof bodyv.query == 'string' && (bodyv.query.includes('createNewUser') || bodyv.query.includes('signIn') || bodyv.query.includes('__schema'))) {
             return await next();
           }
         }
