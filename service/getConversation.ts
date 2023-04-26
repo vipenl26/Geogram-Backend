@@ -17,7 +17,7 @@ const getConversation = async(ctx: Record<string, unknown>, args: {receiverUserI
     let yid: string = args.receiverUserId
 
     if (userId > args.receiverUserId){
-        [xid, yid] = [userId, args.receiverUserId]
+        [xid, yid] = [args.receiverUserId, userId]
         flipIncoming = true
     }
 
