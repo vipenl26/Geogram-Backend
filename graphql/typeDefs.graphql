@@ -1,12 +1,18 @@
 type baseDTO {
   message: String!
   accessToken: String
+  showMessage: Boolean
 }
 type message {
   messageid: Int!
   messagetimestamp: String!
   messagedata: String!
   incoming: Boolean!
+}
+type person {
+  id: String!
+  latitude: String!
+  longitude: String!
 }
 
 type Query {
@@ -15,10 +21,12 @@ type Query {
   signIn(username: String, password: String): baseDTO
   whoami(bearer: String): baseDTO
   getConversation(receiverUserId: String!, limit: Int!, offset: Int!): [message]
+  discoverPeople: [person]
 }
 
 type Mutation {
   createNewUser(username: String, password: String, fullname: String): baseDTO
   sendMessage(messagedata: String, receiverUserId: String, messagetimestamp: String): Int
+  updateCoordinates(latitude: String, longitude: String, discoverradius: String): baseDTO
 }
   

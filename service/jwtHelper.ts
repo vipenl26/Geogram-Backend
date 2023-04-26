@@ -13,12 +13,12 @@ const key = await crypto.subtle.importKey(
     true,
     ["sign", "verify"],
 )
-const expireLimit = 15 * 60; // in seconds
+const JWT_VALIDITY = Number(Deno.env.get("JWT_VALIDITY")) // in seconds
 // deno-lint-ignore ban-types
 const generateJWT = async (data: Object) => {
     const payload: Payload = {
         ...data,
-        exp: getNumericDate(expireLimit),
+        exp: getNumericDate(JWT_VALIDITY),
     };
     //console.log(getNumericDate(expireLimit))
     const algorithm = "HS256"
