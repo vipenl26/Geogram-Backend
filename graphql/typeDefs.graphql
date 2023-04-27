@@ -1,7 +1,15 @@
-type baseDTO {
-  message: String!
-  accessToken: String
+interface baseDTO {
+  message: String
   showMessage: Boolean
+}
+type DTO implements baseDTO{
+  message: String
+  showMessage: Boolean
+}
+type authDTO implements baseDTO {
+  message: String
+  showMessage: Boolean
+  accessToken: String
 }
 type message {
   messageid: Int!
@@ -18,15 +26,15 @@ type person {
 type Query {
   hello: String
   bye: String
-  signIn(username: String, password: String): baseDTO
-  whoami(bearer: String): baseDTO
+  signIn(username: String, password: String): authDTO
+  whoami(bearer: String): DTO
   getConversation(receiverUserId: String!, limit: Int!, offset: Int!): [message]
   discoverPeople: [person]
 }
 
 type Mutation {
-  createNewUser(username: String, password: String, fullname: String): baseDTO
+  createNewUser(username: String, password: String, fullname: String): DTO
   sendMessage(messagedata: String, receiverUserId: String, messagetimestamp: String): Int
-  updateCoordinates(latitude: String, longitude: String, discoverradius: String): baseDTO
+  updateCoordinates(latitude: String, longitude: String, discoverradius: String): DTO
 }
   

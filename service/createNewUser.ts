@@ -3,13 +3,15 @@ import createNewUserDB from "../database_service/createNewUserDB.ts"
 import * as bcrypt from "https://deno.land/x/bcrypt@v0.4.1/mod.ts";
 const createNewUser = async(username: string, password: string, fullname: string) => {
 
+    if (password.length < 8) {
+        return {message: "Password length is less than 8 characters", showMessage: true}
+    }
+    
     if (await doesUsernameExistsDB(username)) {
-        return {message: "Username already exists"}
+        return {message: "Username already exists", showMessage: true}
     }
 
-    if (password.length < 8) {
-        return {message: "Password length is less than 8 characters"}
-    }
+
     try {
         const salt = await bcrypt.genSalt()
         const hashedPassword = await bcrypt.hash(password, salt)
@@ -21,11 +23,11 @@ const createNewUser = async(username: string, password: string, fullname: string
             fullname: fullname
         })
 
-        return {message: "user created"}
+        return {message: "user created", showMessage: false}
     }
     catch (exp) {
         console.log(exp)
-        return {message: "User creation failed"}
+        return {message: "User creation failed", showMessage: true}
     }
 
 }

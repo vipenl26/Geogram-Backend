@@ -1,5 +1,6 @@
 
 
+// deno-lint-ignore no-explicit-any
 const getFieldFromContext  = (ctx: Record<string, unknown>,  field: string): any => {
     const f = field;
     if (f in ctx && typeof ctx[f] == 'string'){

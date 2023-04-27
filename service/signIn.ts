@@ -9,7 +9,7 @@ const signIn = async (username: string, password: string) => {
     const SIGNIN_SUCCESS = "Signin sucess"
 
     if (!(await doesUsernameExistsDB(username))) {
-        return {message: SIGNIN_FAILED}
+        return {message: SIGNIN_FAILED, showMessage: true}
     }
 
 
@@ -23,10 +23,10 @@ const signIn = async (username: string, password: string) => {
     if (ok) {
         const userid = await getUUIDFromUsernameDB(username)
         const jwt = generateJWT({username: username, userid: userid})
-        return {message: SIGNIN_SUCCESS, accessToken: jwt}
+        return {message: SIGNIN_SUCCESS, accessToken: jwt, showMessage: false}
     }
 
-    return {message: SIGNIN_FAILED}
+    return {message: SIGNIN_FAILED, showMessage: true}
 
 }
 
