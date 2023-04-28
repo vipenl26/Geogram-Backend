@@ -30,11 +30,19 @@ type Query {
   whoami(bearer: String): DTO
   getConversation(receiverUserId: String!, limit: Int!, offset: Int!): [message]
   discoverPeople: [person]
+  isFriend(id: String): Boolean
+  getUserId: String
+  getAllFriends(limit:Int, offset:Int): [String]
+  getAllFriendRequests(limit:Int, offset:Int): [String]
 }
 
 type Mutation {
   createNewUser(username: String, password: String, fullname: String): DTO
   sendMessage(messagedata: String, receiverUserId: String, messagetimestamp: String): Int
   updateCoordinates(latitude: String, longitude: String, discoverradius: String): DTO
+  sendFriendRequest(id: String): DTO
+  rejectFriendRequest(id: String): DTO
+  acceptFriendRequest(id: String): DTO
+  unfriend(id: String): DTO
 }
   

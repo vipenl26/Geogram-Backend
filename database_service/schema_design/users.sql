@@ -7,3 +7,7 @@ CREATE TABLE IF NOT EXISTS users (
   full_name VARCHAR(255) NOT NULL,
   salt VARCHAR(255) NOT NULL
 );
+
+
+CREATE INDEX IF NOT EXISTS users_username_index
+ON users(username);

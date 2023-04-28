@@ -5,3 +5,6 @@ CREATE TABLE IF NOT EXISTS messages (
     messagetimestamp TIMESTAMP NOT NULL,
     incoming BOOLEAN NOT NULL
 );
+
+CREATE INDEX IF NOT EXISTS messages_conversationid_index
+ON messages(conversationid);
