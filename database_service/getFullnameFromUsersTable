@@ -1,0 +1,17 @@
+import connection from "./dbConnection.ts"
+
+
+const getFullnameFromUsersTable = async(id: string) => {
+    const result = await connection.queryObject`
+        SELECT fullname from users
+        WHERE id = ${id};
+    `
+    const t = result.rows.at(0)
+    if (typeof t == 'object' && t != null && 'fullname' in t && typeof t.fullname == 'string'){
+        return t.fullname
+    }
+    
+    return "cannot fetch fullname"
+}
+
+export default getFullnameFromUsersTable

@@ -12,7 +12,12 @@ const getFieldFromContext  = (ctx: Record<string, unknown>,  field: string): any
 
 
 const getUserIdFromContext = (ctx: Record<string, unknown>) => {
-    return getFieldFromContext(ctx, 'userid')
+    const temp =  getFieldFromContext(ctx, 'userid')
+
+    if (typeof temp == 'string') {
+        return temp
+    }
+    return "error!"
 }
 
 const getUsernameFromContext = (ctx: Record<string, unknown>) => {

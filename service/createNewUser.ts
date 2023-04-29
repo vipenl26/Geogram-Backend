@@ -1,7 +1,7 @@
 import doesUsernameExistsDB from "../database_service/doesUsernameExistsDB.ts"
 import createNewUserDB from "../database_service/createNewUserDB.ts"
 import * as bcrypt from "https://deno.land/x/bcrypt@v0.4.1/mod.ts";
-const createNewUser = async(username: string, password: string, fullname: string) => {
+const createNewUser = async(username: string, password: string) => {
 
     if (password.length < 8) {
         return {message: "Password length is less than 8 characters", showMessage: true}
@@ -19,8 +19,7 @@ const createNewUser = async(username: string, password: string, fullname: string
         createNewUserDB({
             username: username,
             hashedPassword: hashedPassword,
-            salt: salt,
-            fullname: fullname
+            salt: salt
         })
 
         return {message: "user created", showMessage: false}

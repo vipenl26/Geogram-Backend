@@ -22,6 +22,16 @@ type person {
   latitude: String!
   longitude: String!
 }
+type profile {
+  bio: String
+  gender: String
+  fullName: String
+}
+input profileInput{
+  bio: String
+  gender: String
+  fullName: String
+}
 
 type Query {
   hello: String
@@ -34,6 +44,7 @@ type Query {
   getUserId: String
   getAllFriends(limit:Int, offset:Int): [String]
   getAllFriendRequests(limit:Int, offset:Int): [String]
+  getProfile: profile
 }
 
 type Mutation {
@@ -44,5 +55,6 @@ type Mutation {
   rejectFriendRequest(id: String): DTO
   acceptFriendRequest(id: String): DTO
   unfriend(id: String): DTO
+  setProfile(profile: profileInput): DTO
 }
   

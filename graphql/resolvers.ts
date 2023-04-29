@@ -13,6 +13,8 @@ import getUserId from "../service/getUserId.ts";
 import unfriend from "../service/unfriend.ts"
 import getAllFriendRequests from "../service/getAllFriendRequests.ts";
 import getAllFriends from "../service/getAllFriends.ts";
+import getProfile from "../service/getProfile.ts"
+import setProfile from "../service/setProfile.ts"
 const resolvers = {
     Query: {
       hello: () => `Hello, World!`,
@@ -24,17 +26,21 @@ const resolvers = {
       isFriend: (_parent: unknown, args: {id: string}, ctx:Record<string, unknown>) => isFriend(ctx, args.id),
       getUserId: (_parent: unknown, _args: unknown, ctx:Record<string, unknown>) => getUserId(ctx),
       getAllFriendRequests: (_parent: unknown, args: {limit: number, offset: number}, ctx:Record<string, unknown>) => getAllFriendRequests(ctx, args.limit, args.offset),
-      getAllFriends: (_parent: unknown, args: {limit: number, offset: number}, ctx:Record<string, unknown>) => getAllFriends(ctx, args.limit, args.offset)
+      getAllFriends: (_parent: unknown, args: {limit: number, offset: number}, ctx:Record<string, unknown>) => getAllFriends(ctx, args.limit, args.offset),
+      getProfile: (_parent: unknown, _args: unknown, ctx:Record<string, unknown>) => getProfile(ctx)
+      
     },
 
     Mutation: {
-        createNewUser: (_parent: unknown, args: {username: string, password: string, fullname: string}) => createNewUser(args.username,args.password, args.fullname),
+        createNewUser: (_parent: unknown, args: {username: string, password: string}) => createNewUser(args.username,args.password),
         sendMessage: (_parent: unknown, args: {messagedata: string, receiverUserId: string, messagetimestamp:string}, ctx:Record<string, unknown>) => sendMessage(ctx, args.messagedata, args.receiverUserId, args.messagetimestamp),
         updateCoordinates: (_parent: unknown, args: {latitude: string, longitude: string, discoverradius: string}, ctx:Record<string, unknown>) => updateCoordinates(ctx, args),
         sendFriendRequest: (_parent: unknown, args: {id: string}, ctx:Record<string, unknown>) => sendFriendRequest(ctx, args.id),
         rejectFriendRequest: (_parent: unknown, args: {id: string}, ctx:Record<string, unknown>) => rejectFriendRequest(ctx, args.id),
         acceptFriendRequest: (_parent: unknown, args: {id: string}, ctx:Record<string, unknown>) => acceptFriendRequest(ctx, args.id),
         unfriend: (_parent: unknown, args: {id: string}, ctx:Record<string, unknown>) => unfriend(ctx, args.id),
+        setProfile: (_parent: unknown, args: {profile:{bio: string, gender: string, fullName: string}}, ctx:Record<string, unknown>) => setProfile(ctx, args.profile)
+
       }
 }
 

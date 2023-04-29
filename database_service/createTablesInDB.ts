@@ -6,11 +6,13 @@ const createTAblesInDb = async() => {
     const createCoordinatesTable = Deno.readTextFile("./database_service/schema_design/coordinates.sql")
     const createRequestsTable = Deno.readTextFile("./database_service/schema_design/requests.sql")
     const createFriendsTable = Deno.readTextFile("./database_service/schema_design/friends.sql")
+    const createProfilesTable = Deno.readTextFile("./database_service/schema_design/profiles.sql")
     connection.queryObject(await createUsersTable)
     connection.queryObject(await createMessagesTable)
     connection.queryObject(await createCoordinatesTable)
     connection.queryObject(await createRequestsTable)
     connection.queryObject(await createFriendsTable)
+    connection.queryObject(await createProfilesTable)
 }
 
 export default createTAblesInDb
