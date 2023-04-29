@@ -1,8 +1,8 @@
 import connection from "./dbConnection.ts"
-const getEntriesFromMessagesTable = async(conversationId: string, limit: number, offset: number) => {
+const getEntriesFromMessagesTable = async(conversationId: string, limit: number, offset: number, after:number) => {
     const result = await connection.queryArray`
         SELECT messagedata,messagetimestamp,messageid,incoming FROM messages
-        WHERE conversationid=${conversationId}
+        WHERE conversationid=${conversationId} AND messageid > ${after}
         ORDER BY messageid DESC
         LIMIT ${limit}
         OFFSET ${offset};

@@ -38,7 +38,7 @@ type Query {
   bye: String
   signIn(username: String, password: String): authDTO
   whoami(bearer: String): DTO
-  getConversation(receiverUserId: String!, limit: Int!, offset: Int!): [message]
+  getConversation(receiverUserId: String!, limit: Int!, offset: Int!, after: Int): [message]
   discoverPeople: [person]
   isFriend(id: String): Boolean
   getUserId: String
