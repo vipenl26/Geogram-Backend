@@ -22,7 +22,7 @@ const createNewUser = async(username: string, password: string) => {
             salt: salt
         })
 
-        return {message: "user created", showMessage: false}
+        return {message: "user created", showMessage: true}
     }
     catch (exp) {
         console.log(exp)
