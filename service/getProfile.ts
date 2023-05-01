@@ -1,7 +1,9 @@
+import existsInRequestsTable from "../database_service/existsInRequestsTable.ts"
 import getEntryFromProfilesTable from "../database_service/getEntryFromProfilesTable.ts"
 import getUsernameFromUsersTable from "../database_service/getUsernameFromUsersTable.ts"
 
 import { getUserIdFromContext } from "./helper.ts"
+import isFriend from "./isFriend.ts"
 
 
 const getProfile = async(ctx:Record<string, unknown>, id: string | null) => {
@@ -10,7 +12,9 @@ const getProfile = async(ctx:Record<string, unknown>, id: string | null) => {
     }
     const obj = await getEntryFromProfilesTable(id)
     const username = await getUsernameFromUsersTable(id)
-    return {...obj, username: username}
+    const isfriend = await isFriend(ctx, id)
+    const ispending = (await existsInRequestsTable(getUserIdFromContext(ctx), id) || await existsInRequestsTable(getUserIdFromContext(ctx), id))
+    return {...obj, username: username, isFriend: isfriend, isPending: ispending}
     
 }
 
