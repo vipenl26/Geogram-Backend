@@ -26,6 +26,7 @@ type profile {
   bio: String
   gender: String
   fullName: String
+  username: String
 }
 input profileInput{
   bio: String
