@@ -47,7 +47,7 @@ type Query {
   isFriend(id: String): Boolean
   getUserId: String
   getAllFriends(limit:Int, offset:Int): [profile]
-  getAllFriendRequests(limit:Int, offset:Int): [String]
+  getAllFriendRequests(limit:Int, offset:Int): [profile]
   getProfile(id: String): profile
 }
 

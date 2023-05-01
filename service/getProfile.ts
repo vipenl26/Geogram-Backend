@@ -13,7 +13,7 @@ const getProfile = async(ctx:Record<string, unknown>, id: string | null) => {
     const obj = await getEntryFromProfilesTable(id)
     const username = await getUsernameFromUsersTable(id)
     const isfriend = await isFriend(ctx, id)
-    const ispending = (await existsInRequestsTable(getUserIdFromContext(ctx), id) || await existsInRequestsTable(getUserIdFromContext(ctx), id))
+    const ispending = (await existsInRequestsTable(getUserIdFromContext(ctx), id) || await existsInRequestsTable(id, getUserIdFromContext(ctx)))
     return {...obj, username: username, isFriend: isfriend, isPending: ispending}
     
 }
