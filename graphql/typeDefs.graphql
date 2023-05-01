@@ -28,6 +28,8 @@ type profile {
   gender: String
   fullName: String
   username: String
+  isFriend: Boolean
+  isPending: Boolean
 }
 input profileInput{
   bio: String
