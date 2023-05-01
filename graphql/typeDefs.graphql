@@ -23,6 +23,7 @@ type person {
   longitude: String!
 }
 type profile {
+  id: String
   bio: String
   gender: String
   fullName: String
@@ -43,7 +44,7 @@ type Query {
   discoverPeople: [person]
   isFriend(id: String): Boolean
   getUserId: String
-  getAllFriends(limit:Int, offset:Int): [String]
+  getAllFriends(limit:Int, offset:Int): [profile]
   getAllFriendRequests(limit:Int, offset:Int): [String]
   getProfile(id: String): profile
 }
