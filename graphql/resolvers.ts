@@ -27,7 +27,7 @@ const resolvers = {
       getUserId: (_parent: unknown, _args: unknown, ctx:Record<string, unknown>) => getUserId(ctx),
       getAllFriendRequests: (_parent: unknown, args: {limit: number, offset: number}, ctx:Record<string, unknown>) => getAllFriendRequests(ctx, args.limit, args.offset),
       getAllFriends: (_parent: unknown, args: {limit: number, offset: number}, ctx:Record<string, unknown>) => getAllFriends(ctx, args.limit, args.offset),
-      getProfile: (_parent: unknown, _args: unknown, ctx:Record<string, unknown>) => getProfile(ctx)
+      getProfile: (_parent: unknown, args: {id: string | null}, ctx:Record<string, unknown>) => getProfile(ctx, args.id)
       
     },
 

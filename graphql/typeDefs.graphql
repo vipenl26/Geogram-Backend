@@ -44,7 +44,7 @@ type Query {
   getUserId: String
   getAllFriends(limit:Int, offset:Int): [String]
   getAllFriendRequests(limit:Int, offset:Int): [String]
-  getProfile: profile
+  getProfile(id: String): profile
 }
 
 type Mutation {
