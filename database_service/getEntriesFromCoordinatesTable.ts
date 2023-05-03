@@ -1,7 +1,7 @@
 import connection from "./dbConnection.ts"
 const getEntriesFromCoordinatesTable = async() => {
     const result = await connection.queryArray`
-        SELECT * FROM coordinates;
+        SELECT id, latitude, longitude, discoverradius, lastseen FROM coordinates;
     `
 
     type reqType = {id: string, latitude: string, longitude: string, discoverradius: number, lastseen: number}
