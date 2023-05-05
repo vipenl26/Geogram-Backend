@@ -15,7 +15,7 @@ const signIn = async (username: string, password: string) => {
 
     const salt = await getSaltOfUserDB(username)
 
-    const hashedPassword = await bcrypt.hash(password, salt)
+    const hashedPassword = await bcrypt.hashSync(password, salt)
 
     const ok = await verifyPasswordDB(username, hashedPassword)
 

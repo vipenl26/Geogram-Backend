@@ -13,8 +13,8 @@ const createNewUser = async(username: string, password: string) => {
 
 
     try {
-        const salt = await bcrypt.genSalt()
-        const hashedPassword = await bcrypt.hash(password, salt)
+        const salt = bcrypt.genSaltSync()
+        const hashedPassword = bcrypt.hashSync(password, salt)
         
         createNewUserDB({
             username: username,
