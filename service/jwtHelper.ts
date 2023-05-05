@@ -1,36 +1,23 @@
-import { create, verify , getNumericDate, Payload, Header} from "https://deno.land/x/djwt@v2.4/mod.ts";
+import {getNumericDate} from "https://deno.land/x/djwt@v2.4/mod.ts";
 import "https://deno.land/x/dotenv@v3.2.2/load.ts"
+import { createToken, verifyToken } from "./encryptionHelper.ts";
 
 const ACCESS_TOKEN_SECRET = Deno.env.get("ACCESS_TOKEN_SECRET") || ""
-const encoder = new TextEncoder()
-const keyBuf = encoder.encode(ACCESS_TOKEN_SECRET);
 
-
-const key = await crypto.subtle.importKey(
-    "raw",
-    keyBuf,
-    {name: "HMAC", hash: "SHA-256"},
-    true,
-    ["sign", "verify"],
-)
 const JWT_VALIDITY = Number(Deno.env.get("JWT_VALIDITY")) // in seconds
 // deno-lint-ignore ban-types
-const generateJWT = async (data: Object) => {
-    const payload: Payload = {
+const generateJWT = (data: Object) => {
+    const payload = {
         ...data,
         exp: getNumericDate(JWT_VALIDITY),
     };
     //console.log(getNumericDate(expireLimit))
-    const algorithm = "HS256"
+    
+    const header = {
+        algorithm: "my-implementation"
+    }
 
-    const header: Header = {
-        alg: algorithm,
-        typ: "JWT",
-        foo: "bar"  // custom header
-    };
-
-
-    const jwt = await create(header, payload, key)
+    const jwt = createToken(header, payload, ACCESS_TOKEN_SECRET)
 
 
 
@@ -39,15 +26,21 @@ const generateJWT = async (data: Object) => {
 }
 
 
-const validateJWT = async (jwt: string): Promise<{isValid: boolean, payload?: Payload}> => {
+// deno-lint-ignore ban-types
+const validateJWT = (jwt: string): {isValid: boolean, payload?: object} => {
     try {
-        const payload = await verify(jwt, key); 
+        const payload = verifyToken(jwt, ACCESS_TOKEN_SECRET)
+        if (!payload.isValid) {
+            return {isValid: false}
+        }
         if ('exp' in payload && typeof payload.exp == 'number') {
             if (payload.exp < getNumericDate(0)) {
                 return {isValid: false}
             }
+            else {
+                return {isValid: true, payload: payload}
+            }
         }
-        return {isValid: true, payload: payload}
       }
       catch(_e){
         const e:Error= _e;
